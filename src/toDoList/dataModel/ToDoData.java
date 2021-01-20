@@ -14,13 +14,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ToDoData {
-    private static ToDoData instance = new ToDoData();
+    private static ToDoData instance1 = new ToDoData();
     private static String fileName = "todoItems.txt";
     private List<ToDoItem> todoItems;
     private DateTimeFormatter formatter;
 
     public static ToDoData getInstance(){
-        return instance;
+        return instance1;
     }
 
     private ToDoData(){
