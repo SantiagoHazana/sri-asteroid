@@ -31,7 +31,7 @@
             <HBox style="-fx-background-color: white">
                 <Label text="Due: ">
                     <font>
-                        <Font name="Times New Roman bold" size="20"/>
+                        <Font name="Times New Roman bold" size="18"/>
                     </font>
                 </Label>
                 <Label fx:id="dueDateLabel">
