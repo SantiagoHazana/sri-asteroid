@@ -1,4 +1,4 @@
-package gerson;
+package models;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -7,14 +7,14 @@ public class Ship {
     public Vector position;
     public Vector velocity;
     public double rotation; // en grados
-    public Rectangle boundary; //hitbox / perimetro
+    public Hitbox boundary; //hitbox / perimetro
     public Image image;
 
     public Ship(){
         this.position = new Vector();
         this.velocity = new Vector();
         this.rotation = 0;
-        this.boundary = new Rectangle();
+        this.boundary = new Hitbox();
     }
 
     public Ship(String imageFileName){
@@ -27,7 +27,7 @@ public class Ship {
         this.boundary.setSize(image.getWidth(), image.getHeight());
     }
 
-    public Rectangle getBoundary(){
+    public Hitbox getBoundary(){
         this.boundary.setPosition(this.position.x, this.position.y);
         return this.boundary;
     }

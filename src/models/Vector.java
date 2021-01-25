@@ -1,4 +1,4 @@
-package gerson;
+package models;
 
 public class Vector {
     public double x;

@@ -1,4 +1,4 @@
-package gerson;
+package models;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -8,14 +8,14 @@ public class Sprite {
     public Vector position;
     public Vector velocity;
     public double rotation; // en grados
-    public Rectangle boundary; //hitbox / perimetro
+    public Hitbox boundary; //hitbox / perimetro
     public Image image;
 
     public Sprite(){
         this.position = new Vector();
         this.velocity = new Vector();
         this.rotation = 0;
-        this.boundary = new Rectangle();
+        this.boundary = new Hitbox();
 
     }
 
@@ -31,7 +31,7 @@ public class Sprite {
     }
 
     //posicion
-    public Rectangle getBoundary(){
+    public Hitbox getBoundary(){
         this.boundary.setPosition(this.position.x, this.position.y);
         return this.boundary;
     }

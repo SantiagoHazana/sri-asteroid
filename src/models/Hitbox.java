@@ -1,20 +1,20 @@
-package gerson;
+package models;
 
-public class Rectangle {
+public class Hitbox {
     //clase hitbox
     double x;
     double y;
     double width;
     double height;
 
-    public Rectangle(){
+    public Hitbox(){
         //posicion inicial
         this.setPosition(0,0);
         //tamaño inicial
         this.setSize(1,1);
     }
 
-    public Rectangle(double x, double y, double w, double h){
+    public Hitbox(double x, double y, double w, double h){
         this.setPosition(x,y);
         this.setSize(w,h);
     }
@@ -32,7 +32,7 @@ public class Rectangle {
     }
 
     //comprueba que no esten uno en la misma posicion que otro
-    public boolean overlaps(Rectangle other){
+    public boolean overlaps(Hitbox other){
 
 //        4 casos posibles
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ToDoData {
     private static ToDoData instance1 = new ToDoData();
-    private static String fileName = "todoItems.txt";
+    private static String fileName2 = "todoItems.txt";
     private List<ToDoItem> todoItems;
     private DateTimeFormatter formatter;
 
@@ -37,7 +37,7 @@ public class ToDoData {
 
     public void loadToDoItems() throws IOException{
         todoItems = FXCollections.observableArrayList();
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(fileName2);
         BufferedReader bufferedReader = Files.newBufferedReader(path);
 
         String input;
@@ -64,7 +64,7 @@ public class ToDoData {
     }
 
     public void storeToDoItems() throws IOException{
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(fileName2);
         BufferedWriter bufferedWriter = Files.newBufferedWriter(path);
 
         try {

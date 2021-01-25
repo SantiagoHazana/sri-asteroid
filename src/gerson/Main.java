@@ -8,6 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import models.Ship;
+import models.Sprite;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class Main extends Application {
 
         //fondo -- Cambiar a mas resolucion
 
-        Sprite background = new Sprite("gerson/Images/background900p.png");
+        Sprite background = new Sprite("Images/background900p.png");
         background.position.set(470,450);
 
 
@@ -62,7 +64,7 @@ public class Main extends Application {
 
         // nave 2
 
-        Ship ship = new Ship("gerson/Images/spaceship.png");
+        Ship ship = new Ship("Images/spaceship.png");
         ship.position.set(820,400);
         ship.rotation -=90;
 
@@ -82,7 +84,7 @@ public class Main extends Application {
                 }
 
                 if (keyPressedList.contains("W")){
-                    ship.velocity.setLength(300); //velocidad inicial
+                    ship.velocity.setLength(150); //velocidad inicial
                     ship.velocity.setAngle(ship.rotation);
                 }else{
                     // cuando se suelta la tecla --- meter desaceleracion
@@ -90,7 +92,7 @@ public class Main extends Application {
                     if (ship.velocity.getLength()==0) {
                         ship.velocity.setLength(0); //velocidad 0 al inicio
                     }else {
-                        ship.velocity.setLength(100);
+                        ship.velocity.setLength(50);
                     }
                 }
 
