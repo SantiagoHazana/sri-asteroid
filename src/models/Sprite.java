@@ -3,7 +3,6 @@ package models;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-//clase nave y rock en una
 public class Sprite {
     public Vector position;
     public Vector velocity;
@@ -22,6 +21,10 @@ public class Sprite {
     public Sprite(String imageFileName){
         this(); //const vacio
         setImage(imageFileName);
+    }
+
+    public void setImagePosition(){
+
     }
 
     //creacion de nave/roca
@@ -66,7 +69,7 @@ public class Sprite {
     public void update(double deltaTime){
         //actualizacion de la posicion acorde a la velocidad
         this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
-        this.wrap(800,600);
+        this.wrap(1600,900);
     }
 
     //render de los sprites
