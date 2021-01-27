@@ -14,6 +14,8 @@ import models.Ship;
 import models.Sprite;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game extends Application {
 
@@ -74,11 +76,20 @@ public class Game extends Application {
         ArrayList<Rock> rockList = new ArrayList<Rock>();
         //hacer meto devuelva imagen aleatoria
 
-        int rockCount = 5;
+        int rockCount = 1;
         for (int i = 0; i < rockCount ; i++) {
             Rock rock = new Rock(Rock.getImages());
             rockList.add(rock);
         }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Rock rock = new Rock(Rock.getImages());
+                rockList.add(rock);
+            }
+        },0,3*1000);
 
         AnimationTimer gameloop = new AnimationTimer() {
             @Override
