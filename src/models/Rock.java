@@ -5,22 +5,17 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Rock extends Sprite{
-
-    public ArrayList<String> rockImagesList;
+    private double x = Math.random()*1300+300;;
+    private double y = Math.random()*800+100;
+    private double angle = Math.random()*360;
+    private double tempName = (int)(Math.random()*50+50);
     private boolean alive;
-    private double timer;
-    private int timeToGenerateRock;
 
     public Rock(String imageFileName){
-        double x = Math.random()*1300+300;
-        double y = Math.random()*800+100;
-        double angle = Math.random()*360;
-        this.position.set(x,y);
-        this.velocity.setLength(((int)(Math.random()*50+50)));
-        this.velocity.setAngle(angle);
-        alive = true;
-        timer = 0;
-        timeToGenerateRock = 3;
+        this.position.set(this.x,this.y);
+        this.velocity.setLength(this.tempName);
+        this.velocity.setAngle(this.angle);
+        alive =  true;
         setImage(imageFileName);
     }
 
