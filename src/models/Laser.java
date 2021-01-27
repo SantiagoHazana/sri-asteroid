@@ -22,6 +22,25 @@ public class Laser extends Sprite{
         this.wrap(1600,900);
     }
 
+    public void wrap(double screenWidth, double screenHeight){
+
+        double halfWidth = this.image.getWidth()/2;
+        double halfHeight = this.image.getWidth()/2;
+
+        if (this.position.x + halfWidth< 0){
+            die();
+        }
+        if (this.position.x > screenWidth) {
+            die();
+        }
+        if (this.position.y + halfHeight < 0) {
+            die();
+        }
+        if (this.position.y > screenHeight){
+            die();
+        }
+    }
+
     public boolean isAlive() {
         return alive;
     }
