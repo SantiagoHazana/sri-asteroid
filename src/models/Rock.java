@@ -10,11 +10,22 @@ public class Rock extends Sprite{
     private double angle = Math.random()*360;
     private double tempName = (int)(Math.random()*50+50);
     private boolean alive;
+    private boolean isTiny;
+
+    public Rock(){
+        this.velocity.setLength(this.tempName);
+        this.velocity.setAngle(this.angle);
+        alive =  true;
+        isTiny = true;
+        setImage("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med1.png");
+
+    }
 
     public Rock(String imageFileName){
         this.position.set(this.x,this.y);
         this.velocity.setLength(this.tempName);
         this.velocity.setAngle(this.angle);
+        isTiny = false;
         alive =  true;
         setImage(imageFileName);
     }
@@ -36,17 +47,20 @@ public class Rock extends Sprite{
     public boolean isAlive() {
         return alive;
     }
+    public boolean isTiny(){ return isTiny; }
 
     public void die(){
         alive = false;
     }
 
     public static String getImages(){
+        //cambiar el nombre a getBigRock
         ArrayList<String> rockImagesList = new ArrayList<String>();
-        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorGrey_big1.png");
-        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorGrey_big2.png");
-        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med1.png");
-        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med3.png");
+        //solo rocas grandes
+        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big1.png");
+        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big2.png");
+        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big3.png");
+        rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big4.png");
         return rockImagesList.get((int)(Math.random()*4));
     }
 }

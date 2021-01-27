@@ -173,6 +173,24 @@ public class Game extends Application {
                         if (l.overlaps(r)){
                             l.die();
                             ship.addPoints(100);
+                            if (!r.isTiny()) {
+                                Rock tiny = new Rock();
+                                Rock tiny2 = new Rock();
+                                Rock tiny3 = new Rock();
+                                Rock tiny4 = new Rock();
+
+                                //probe a meterlas en un for para no tener tanto codigo pero no funciono
+                                tiny.position.set(r.position.x, r.position.y);
+                                tiny2.position.set(r.position.x, r.position.y);
+                                tiny3.position.set(r.position.x, r.position.y);
+                                tiny4.position.set(r.position.x, r.position.y);
+
+                                rockList.add(tiny);
+                                rockList.add(tiny2);
+                                rockList.add(tiny3);
+                                rockList.add(tiny4);
+                            }
+
                             rockList.remove(r);
                             r = null;
                             break;
