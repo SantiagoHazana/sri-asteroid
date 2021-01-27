@@ -5,7 +5,12 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Rock extends Sprite{
+
     public ArrayList<String> rockImagesList;
+    private boolean alive;
+    private double timer;
+    private int timeToGenerateRock;
+
     public Rock(String imageFileName){
         double x = Math.random()*1300+300;
         double y = Math.random()*800+100;
@@ -13,6 +18,9 @@ public class Rock extends Sprite{
         this.position.set(x,y);
         this.velocity.setLength(((int)(Math.random()*50+50)));
         this.velocity.setAngle(angle);
+        alive = true;
+        timer = 0;
+        timeToGenerateRock = 3;
         setImage(imageFileName);
     }
 
@@ -20,6 +28,22 @@ public class Rock extends Sprite{
     public void render(GraphicsContext context) {
         this.rotation +=1;
         super.render(context);
+    }
+
+    @Override
+    public void update(double deltaTime){
+
+        //actualizacion de la posicion acorde a la velocidad
+        this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
+        this.wrap(1600,900);
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void die(){
+        alive = false;
     }
 
     public static String getImages(){

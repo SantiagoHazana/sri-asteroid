@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import models.Laser;
+import models.Rock;
 import models.Ship;
 import models.Sprite;
 
@@ -61,13 +62,6 @@ public class Game extends Application {
                 }
         );
 
-        //nave
-//        Sprite spaceship = new Sprite("sample/Images/spaceship.png");
-//        spaceship.position.set(400,300);
-//        spaceship.rotation -=90;
-
-        // nave 2
-
         Ship ship = new Ship("Images/Space Shooter Visual Assets/PNG/playerShip1_blue.png");
         ship.position.set(820,400);
         ship.rotation -=90;
@@ -75,7 +69,16 @@ public class Game extends Application {
         Ship enemy = new Ship("Images/Space Shooter Visual Assets/PNG/Enemies/enemyGreen1.png");
         enemy.position.set(300, 300);
 
+        //Asteroides
+        // Rock rock = new Rock("Images/Space Shooter Visual Assets/PNG/Meteors/meteorGrey_big2.png");
+        ArrayList<Rock> rockList = new ArrayList<Rock>();
+        //hacer meto devuelva imagen aleatoria
 
+        int rockCount = 5;
+        for (int i = 0; i < rockCount ; i++) {
+            Rock rock = new Rock(Rock.getImages());
+            rockList.add(rock);
+        }
 
         AnimationTimer gameloop = new AnimationTimer() {
             @Override
@@ -102,16 +105,33 @@ public class Game extends Application {
 
                 if (ship.overlaps(enemy) && enemy.isAlive()){
                     System.out.println("Ship touched the other ship");
-                    ship.crash();
+                    ship.hit();
                     enemy.die();
                 }
 
+                background.render(context);
+
+                for (Rock rock: rockList){
+                    if (rock.isAlive()){
+                        rock.render(context);
+                        rock.update(1/60.0D);
+                    }else{
+                        rockList.remove(rock);
+                        rock = null;
+                        break;
+                    }
+                    if (rock.overlaps(ship)) {
+                        rockList.remove(rock);
+                        ship.hit();
+                        rock.die();
+                    }
+                }
+                System.out.println("Player points: " + ship.getPoints());
 
                 //spaceship.update(1/60.0); //fps -- cambiar otro update
                 ship.update(1/60.0);
                 enemy.update(1/60f);
 
-                background.render(context);
                 //spaceship.render(context);
                 ship.render(context);
                 if (enemy.isAlive())
@@ -119,19 +139,28 @@ public class Game extends Application {
 
 
                 for (Laser l : lasers) {
-                    l.update(1/60f);
-                    if (l.overlaps(enemy)){
+                    if (l.isAlive()){
+                        l.render(context);
+                        l.update(1/60f);
+                    }else{
+                        lasers.remove(l);
+                        l=null;
+                        break;
+                    }
+                    if (l.overlaps(enemy) && enemy.isAlive()){
                         enemy.die();
+                        ship.addPoints(150);
                         l.die();
                     }
-                    if (l.isAlive())
-                        l.render(context);
-                    else{
-                        l=null;
-                        lasers.remove(l);
+                    for (Rock r : rockList) {
+                        if (l.overlaps(r)){
+                            l.die();
+                            ship.addPoints(100);
+                            rockList.remove(r);
+                            r = null;
+                            break;
+                        }
                     }
-
-
                 }
             }
         };

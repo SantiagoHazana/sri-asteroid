@@ -4,6 +4,7 @@ public class Ship extends Sprite {
 
     private boolean alive;
     private int lives;
+    private int points;
 
     public Ship(){
         super();
@@ -14,6 +15,14 @@ public class Ship extends Sprite {
     public Ship(String imageFileName){
         super(imageFileName);
         alive = true;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     public void move(String key){
@@ -56,7 +65,7 @@ public class Ship extends Sprite {
         return laser;
     }
 
-    public void crash() {
+    public void hit() {
         if (lives==0)
             die();
         else
