@@ -15,6 +15,7 @@ public class Ship extends Sprite {
     public Ship(String imageFileName){
         super(imageFileName);
         alive = true;
+        lives = 3;
     }
 
     public int getPoints() {
@@ -22,7 +23,8 @@ public class Ship extends Sprite {
     }
 
     public void addPoints(int points) {
-        this.points += points;
+        if (alive)
+            this.points += points;
     }
 
     public void move(String key){
@@ -52,6 +54,10 @@ public class Ship extends Sprite {
         return alive;
     }
 
+    public int getLives(){
+        return lives;
+    }
+
     public void die(){
         alive = false;
     }
@@ -66,9 +72,8 @@ public class Ship extends Sprite {
     }
 
     public void hit() {
+        lives--;
         if (lives==0)
             die();
-        else
-            lives--;
     }
 }

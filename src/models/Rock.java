@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Rock extends Sprite{
-    private double x = Math.random()*1300+300;;
+    private double x = Math.random()*1300+300;
     private double y = Math.random()*800+100;
     private double angle = Math.random()*360;
     private double tempName = (int)(Math.random()*50+50);

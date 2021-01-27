@@ -7,12 +7,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import models.Laser;
 import models.Rock;
 import models.Ship;
 import models.Sprite;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -89,27 +93,29 @@ public class Game extends Application {
                 Rock rock = new Rock(Rock.getImages());
                 rockList.add(rock);
             }
-        },0,3*1000);
+        },0,1500);
 
         AnimationTimer gameloop = new AnimationTimer() {
             @Override
             public void handle(long nanotime) {
-                //movimientos
-                if (keyPressedList.contains("A")){
-                    ship.move("A");
-                }
+                if (ship.isAlive()) {
+                    //movimientos
+                    if (keyPressedList.contains("A")) {
+                        ship.move("A");
+                    }
 
-                if (keyPressedList.contains("D")){
-                    ship.move("D");
-                }
+                    if (keyPressedList.contains("D")) {
+                        ship.move("D");
+                    }
 
-                if (keyPressedList.contains("W")){
-                    ship.move("W");
-                }else{
-                    ship.move("");
-                }
-                if (keyJustPressedList.contains("SPACE")){
-                    lasers.add(ship.pium());
+                    if (keyPressedList.contains("W")) {
+                        ship.move("W");
+                    } else {
+                        ship.move("");
+                    }
+                    if (keyJustPressedList.contains("SPACE")) {
+                        lasers.add(ship.pium());
+                    }
                 }
 
                 keyJustPressedList.clear();
@@ -137,14 +143,14 @@ public class Game extends Application {
                         rock.die();
                     }
                 }
-                System.out.println("Player points: " + ship.getPoints());
 
                 //spaceship.update(1/60.0); //fps -- cambiar otro update
                 ship.update(1/60.0);
                 enemy.update(1/60f);
 
-                //spaceship.render(context);
-                ship.render(context);
+                if (ship.isAlive())
+                    ship.render(context);
+
                 if (enemy.isAlive())
                     enemy.render(context);
 
@@ -173,6 +179,13 @@ public class Game extends Application {
                         }
                     }
                 }
+
+                context.setFill(Color.WHITE);
+                context.setStroke(Color.GREEN);
+                context.setFont(new Font("Arial Black", 42));
+                context.setLineWidth(3);
+                context.fillText("Vidas: " + ship.getLives() + "| Puntaje: " + ship.getPoints(), 990, 40);
+                context.strokeText("Vidas: " + ship.getLives() + "| Puntaje: " + ship.getPoints(), 990, 40);
             }
         };
         gameloop.start();
