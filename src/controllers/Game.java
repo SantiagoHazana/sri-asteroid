@@ -11,10 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import models.Laser;
-import models.Rock;
-import models.Ship;
-import models.Sprite;
+import models.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,6 +19,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game extends Application {
+
+    AnimationTimer gameLoop;
 
     @Override
     public void start(Stage primaryStage) {
@@ -36,7 +35,7 @@ public class Game extends Application {
         root.setCenter(canvas);
 
         ArrayList<Laser> lasers = new ArrayList<>();
-
+        ArrayList<Enemy> enemies = new ArrayList<>();
         //fondo -- Cambiar a mas resolucion
 
         Sprite background = new Sprite("Images/background900p.png");
@@ -47,6 +46,7 @@ public class Game extends Application {
 
         ArrayList<String> keyPressedList = new ArrayList<>();
         ArrayList<String> keyJustPressedList = new ArrayList<>();
+
         mainScene.setOnKeyPressed(
                 (KeyEvent event) ->{
                     String keyName = event.getCode().toString();
@@ -72,9 +72,6 @@ public class Game extends Application {
         ship.position.set(820,400);
         ship.rotation -=90;
 
-        Ship enemy = new Ship("Images/Space Shooter Visual Assets/PNG/Enemies/enemyGreen1.png");
-        enemy.position.set(300, 300);
-
         //Asteroides
         // Rock rock = new Rock("Images/Space Shooter Visual Assets/PNG/Meteors/meteorGrey_big2.png");
         ArrayList<Rock> rockList = new ArrayList<Rock>();
@@ -86,8 +83,8 @@ public class Game extends Application {
             rockList.add(rock);
         }
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        Timer timerNewRock = new Timer();
+        timerNewRock.schedule(new TimerTask() {
             @Override
             public void run() {
                 Rock rock = new Rock(Rock.getImages());
@@ -95,7 +92,16 @@ public class Game extends Application {
             }
         },0,1500);
 
-        AnimationTimer gameloop = new AnimationTimer() {
+        Timer timerNewEnemy = new Timer();
+        timerNewEnemy.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Enemy enemy = new Enemy("Images/Space Shooter Visual Assets/PNG/Enemies/enemyGreen1.png");
+                enemies.add(enemy);
+            }
+        },0,6000);
+
+        gameLoop = new AnimationTimer() {
             @Override
             public void handle(long nanotime) {
                 if (ship.isAlive()) {
@@ -119,14 +125,23 @@ public class Game extends Application {
                 }
 
                 keyJustPressedList.clear();
-
-                if (ship.overlaps(enemy) && enemy.isAlive()){
-                    System.out.println("Ship touched the other ship");
-                    ship.hit();
-                    enemy.die();
-                }
-
                 background.render(context);
+
+                for (Enemy e : enemies) {
+                    if (e.isAlive()){
+                        e.render(context);
+                        e.update(1/60f);
+                        e.checkIfLaserHitShip(ship);
+                    }else{
+                        enemies.remove(e);
+                        e = null;
+                        break;
+                    }
+                    if (e.overlaps(ship) && ship.isAlive()){
+                        e.die();
+                        ship.hit();
+                    }
+                }
 
                 for (Rock rock: rockList){
                     if (rock.isAlive()){
@@ -137,7 +152,7 @@ public class Game extends Application {
                         rock = null;
                         break;
                     }
-                    if (rock.overlaps(ship)) {
+                    if (rock.overlaps(ship) && ship.isAlive()) {
                         rockList.remove(rock);
                         ship.hit();
                         rock.die();
@@ -146,13 +161,15 @@ public class Game extends Application {
 
                 //spaceship.update(1/60.0); //fps -- cambiar otro update
                 ship.update(1/60.0);
-                enemy.update(1/60f);
+
 
                 if (ship.isAlive())
                     ship.render(context);
-
-                if (enemy.isAlive())
-                    enemy.render(context);
+                else{
+                    timerNewRock.cancel();
+                    timerNewEnemy.cancel();
+                    gameOver();
+                }
 
 
                 for (Laser l : lasers) {
@@ -164,11 +181,15 @@ public class Game extends Application {
                         l=null;
                         break;
                     }
-                    if (l.overlaps(enemy) && enemy.isAlive()){
-                        enemy.die();
-                        ship.addPoints(150);
-                        l.die();
+
+                    for (Enemy enemy : enemies) {
+                        if (l.overlaps(enemy) && enemy.isAlive()){
+                            enemy.die();
+                            ship.addPoints(150);
+                            l.die();
+                        }
                     }
+
                     for (Rock r : rockList) {
                         if (l.overlaps(r)){
                             l.die();
@@ -206,7 +227,11 @@ public class Game extends Application {
                 context.strokeText("Vidas: " + ship.getLives() + "| Puntaje: " + ship.getPoints(), 990, 40);
             }
         };
-        gameloop.start();
+        gameLoop.start();
         primaryStage.show();
+    }
+
+    private void gameOver() {
+        gameLoop.stop();
     }
 }
