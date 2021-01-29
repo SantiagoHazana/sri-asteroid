@@ -1,15 +1,25 @@
 package models;
 
+import java.awt.*;
+
 public class Ship extends Sprite {
 
     private boolean alive;
     private int lives;
     private int points;
+    private boolean activeShield;
+    private double shieldTimer;
+    private Image shieldImage;
+    private boolean rapidFire;
+    private double rapidFireTimer;
+
 
     public Ship(){
         super();
         alive = true;
         lives = 3;
+        activeShield = false;
+        rapidFire = false;
     }
 
     public Ship(String imageFileName){
@@ -75,5 +85,43 @@ public class Ship extends Sprite {
         lives--;
         if (lives==0)
             die();
+    }
+
+    public void update(double deltaTime){
+        if (activeShield)
+            shieldTimer += deltaTime;
+        if (shieldTimer >= 10){
+            activeShield = false;
+            shieldTimer = 0;
+        }
+
+        if (rapidFire)
+            rapidFireTimer += deltaTime;
+        if (rapidFireTimer >= 5){
+            rapidFire = false;
+            rapidFireTimer = 0;
+        }
+
+        //actualizacion de la posicion acorde a la velocidad
+        this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
+        this.wrap(1600,900);
+    }
+
+    public void powerUp(PowerUp p) {
+        if (p.getPowerUpType().equals(PowerUp.PowerUpType.ExtraLife)){
+            lives++;
+        }else if (p.getPowerUpType().equals(PowerUp.PowerUpType.Shield)){
+            activeShield = true;
+        }else if (p.getPowerUpType().equals(PowerUp.PowerUpType.RapidFire)){
+            rapidFire = true;
+        }
+    }
+
+    public boolean isShieldActive() {
+        return activeShield;
+    }
+
+    public boolean rapidFireActive() {
+        return rapidFire;
     }
 }

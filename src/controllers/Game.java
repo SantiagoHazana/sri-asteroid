@@ -8,12 +8,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import models.*;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,6 +74,9 @@ public class Game extends Application {
         ArrayList<Rock> rockList = new ArrayList<Rock>();
         //hacer meto devuelva imagen aleatoria
 
+        //PowerUps
+        ArrayList<PowerUp> powerUps = new ArrayList<>();
+
         int rockCount = 1;
         for (int i = 0; i < rockCount ; i++) {
             Rock rock = new Rock(Rock.getImages());
@@ -101,6 +101,16 @@ public class Game extends Application {
             }
         },0,6000);
 
+        Timer timerNewPowerUp = new Timer();
+        timerNewPowerUp.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int r = (int)(Math.random()*3);
+                PowerUp powerUp = new PowerUp(PowerUp.getImages(r), r);
+                powerUps.add(powerUp);
+            }
+        }, 5000, 5000);
+
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long nanotime) {
@@ -112,6 +122,11 @@ public class Game extends Application {
 
                     if (keyPressedList.contains("D")) {
                         ship.move("D");
+                    }
+
+                    if (keyPressedList.contains("SPACE")){
+                        if (ship.rapidFireActive())
+                            lasers.add(ship.pium());
                     }
 
                     if (keyPressedList.contains("W")) {
@@ -139,7 +154,8 @@ public class Game extends Application {
                     }
                     if (e.overlaps(ship) && ship.isAlive()){
                         e.die();
-                        ship.hit();
+                        if (!ship.isShieldActive())
+                            ship.hit();
                     }
                 }
 
@@ -154,8 +170,9 @@ public class Game extends Application {
                     }
                     if (rock.overlaps(ship) && ship.isAlive()) {
                         rockList.remove(rock);
-                        ship.hit();
                         rock.die();
+                        if (!ship.isShieldActive())
+                            ship.hit();
                     }
                 }
 
@@ -171,6 +188,21 @@ public class Game extends Application {
                     gameOver();
                 }
 
+                //Render and check overlap of powerups
+                for (PowerUp p : powerUps) {
+                    if (p.isActive()){
+                        p.render(context);
+                        p.update(1/60f);
+                    }else{
+                        powerUps.remove(p);
+                        p = null;
+                        break;
+                    }
+                    if (ship.isAlive() && p.isActive() && p.overlaps(ship)){
+                        ship.powerUp(p);
+                        p.die();
+                    }
+                }
 
                 for (Laser l : lasers) {
                     if (l.isAlive()){

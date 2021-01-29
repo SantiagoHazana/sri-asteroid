@@ -55,7 +55,8 @@ public class Enemy extends Sprite{
     public void checkIfLaserHitShip(Ship ship){
         for (Laser l : lasers) {
             if (l.overlaps(ship)) {
-                ship.hit();
+                if (!ship.isShieldActive())
+                    ship.hit();
                 l.die();
             }
         }
