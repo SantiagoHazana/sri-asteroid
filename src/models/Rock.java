@@ -5,30 +5,39 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Rock extends Sprite{
-    private double x = Math.random()*1300+300;
-    private double y = Math.random()*800+100;
+    private double x = (int)(Math.random()*1600);;
+    private double y = (int)(Math.random()*900);;
     private double angle = Math.random()*360;
-    private double tempName = (int)(Math.random()*50+50);
+    private double tempName = (int)(Math.random()*50+125);
+    private double tempName2 = (int)(Math.random()*75+150);
     private boolean alive;
     private boolean isTiny;
 
     public Rock(){
-        this.velocity.setLength(this.tempName);
+        this.position.set(x,y);
+        this.velocity.setLength(this.tempName2);
         this.velocity.setAngle(this.angle);
         alive =  true;
         isTiny = true;
-        setImage("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med1.png");
+        setImage(getTinyRockImage());
 
     }
 
     public Rock(String imageFileName){
-        this.position.set(this.x,this.y);
+        //this.position.set(this.x,this.y);
         this.velocity.setLength(this.tempName);
         this.velocity.setAngle(this.angle);
         isTiny = false;
         alive =  true;
         setImage(imageFileName);
     }
+
+    public void newPosition(){
+        x = (int)(Math.random()*1600);
+        y = (int)(Math.random()*900);
+        this.position.set(x,y);
+    }
+
 
     @Override
     public void render(GraphicsContext context) {
@@ -38,7 +47,6 @@ public class Rock extends Sprite{
 
     @Override
     public void update(double deltaTime){
-
         //actualizacion de la posicion acorde a la velocidad
         this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
         this.wrap(1600,900);
@@ -53,8 +61,7 @@ public class Rock extends Sprite{
         alive = false;
     }
 
-    public static String getImages(){
-        //cambiar el nombre a getBigRock
+    public static String getRockImage(){
         ArrayList<String> rockImagesList = new ArrayList<String>();
         //solo rocas grandes
         rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big1.png");
@@ -62,5 +69,12 @@ public class Rock extends Sprite{
         rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big3.png");
         rockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_big4.png");
         return rockImagesList.get((int)(Math.random()*4));
+    }
+    public static String getTinyRockImage(){
+        ArrayList<String> tinyRockImagesList = new ArrayList<String>();
+        tinyRockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med1.png");
+        tinyRockImagesList.add("Images/Space Shooter Visual Assets/PNG/Meteors/meteorBrown_med3.png");
+
+        return tinyRockImagesList.get((int)(Math.random()*2));
     }
 }

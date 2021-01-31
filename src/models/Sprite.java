@@ -38,6 +38,7 @@ public class Sprite {
         this.boundary.setPosition(this.position.x, this.position.y);
         return this.boundary;
     }
+    
 
     //comprueba superposicion de Sprites
     public boolean overlaps(Sprite other){

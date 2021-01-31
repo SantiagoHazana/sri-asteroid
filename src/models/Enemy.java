@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Enemy extends Sprite{
     private boolean alive;
-    private double x = Math.random()*1300+300;
-    private double y = Math.random()*800+100;
+    private double x = (int)(Math.random()*1600);
+    private double y = (int)(Math.random()*900);
     private double angle = Math.random()*360;
     private ArrayList<Laser> lasers;
     private double timer;
@@ -39,6 +39,12 @@ public class Enemy extends Sprite{
         laser.velocity.setAngle(this.rotation);
         laser.rotation = this.rotation;
         lasers.add(laser);
+    }
+
+    public void newPosition(){
+        x = (int)(Math.random()*1600);
+        y = (int)(Math.random()*900);
+        this.position.set(x,y);
     }
 
     public void update(double deltaTime){

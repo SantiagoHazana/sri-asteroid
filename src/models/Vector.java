@@ -31,11 +31,10 @@ public class Vector {
         this.y *=m;
     }
 
-    //sacar el tamaño del vector
+    //sacar la longitud del vector
     public double getLength(){
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
-
 
    //saca el tamaño correcto del vector recur
     public void setLength(double l){

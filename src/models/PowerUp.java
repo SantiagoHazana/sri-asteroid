@@ -12,8 +12,8 @@ public class PowerUp extends Sprite{
 
     private PowerUpType powerUpType;
     private boolean active;
-    private double x = Math.random()*1300+300;
-    private double y = Math.random()*800+100;
+    private double x = (int)(Math.random()*1600);
+    private double y = (int)(Math.random()*900);
     private double angle = Math.random()*360;
 
     public PowerUp(String imageFileName, int type) {
@@ -42,6 +42,12 @@ public class PowerUp extends Sprite{
 
     public PowerUpType getPowerUpType() {
         return powerUpType;
+    }
+
+    public void newPosition(){
+        x = (int)(Math.random()*1600);
+        y = (int)(Math.random()*900);
+        this.position.set(x,y);
     }
 
     public static String getImages(int i){

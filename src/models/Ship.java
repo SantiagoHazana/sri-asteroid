@@ -134,4 +134,8 @@ public class Ship extends Sprite {
     public boolean rapidFireActive() {
         return rapidFire;
     }
+
+    public double getDistance(Sprite sprite){
+        return Math.sqrt(Math.pow((sprite.position.x-this.position.x),2)+Math.pow((sprite.position.y-this.position.y),2));
+    }
 }

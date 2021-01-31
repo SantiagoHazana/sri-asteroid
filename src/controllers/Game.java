@@ -79,9 +79,15 @@ public class Game extends Application {
         //PowerUps
         ArrayList<PowerUp> powerUps = new ArrayList<>();
 
-        int rockCount = 1;
+        int rockCount = 4;
         for (int i = 0; i < rockCount ; i++) {
-            Rock rock = new Rock(Rock.getImages());
+
+            Rock rock = new Rock(Rock.getRockImage());
+            double dist =  ship.getDistance(rock);
+            while (dist < 100) {
+                rock.newPosition();
+                dist = ship.getDistance(rock);
+            }
             rockList.add(rock);
         }
 
@@ -89,7 +95,12 @@ public class Game extends Application {
         timerNewRock.schedule(new TimerTask() {
             @Override
             public void run() {
-                Rock rock = new Rock(Rock.getImages());
+                Rock rock = new Rock(Rock.getRockImage());
+                double dist =  ship.getDistance(rock);
+                while (dist < 300) {
+                    rock.newPosition();
+                    dist = ship.getDistance(rock);
+                }
                 rockList.add(rock);
             }
         },0,1500);
@@ -99,6 +110,11 @@ public class Game extends Application {
             @Override
             public void run() {
                 Enemy enemy = new Enemy("Images/Space Shooter Visual Assets/PNG/Enemies/enemyGreen1.png");
+                double dist =  ship.getDistance(enemy);
+                while (dist < 300) {
+                    enemy.newPosition();
+                    dist = ship.getDistance(enemy);
+                }
                 enemies.add(enemy);
             }
         },0,6000);
@@ -109,6 +125,11 @@ public class Game extends Application {
             public void run() {
                 int r = (int)(Math.random()*3);
                 PowerUp powerUp = new PowerUp(PowerUp.getImages(r), r);
+                double dist =  ship.getDistance(powerUp);
+                while (dist < 300) {
+                    powerUp.newPosition();
+                    dist = ship.getDistance(powerUp);
+                }
                 powerUps.add(powerUp);
             }
         }, 5000, 5000);
@@ -148,7 +169,7 @@ public class Game extends Application {
                     Enemy e = iterator.next();
                     if (e.isAlive()){
                         e.render(context);
-                        e.update(1f/frameRate);
+                        e.update(1/60f);
                         e.checkIfLaserHitShip(ship);
                     }else{
                         iterator.remove();
@@ -187,9 +208,9 @@ public class Game extends Application {
                 if (ship.isAlive())
                     ship.render(context);
                 else{
-                    timerNewRock.cancel();
-                    timerNewEnemy.cancel();
-                    timerNewPowerUp.cancel();
+//                    timerNewRock.cancel();
+//                    timerNewEnemy.cancel();
+//                    timerNewPowerUp.cancel();
                     gameOver();
                 }
 
@@ -233,21 +254,12 @@ public class Game extends Application {
                             l.die();
                             ship.addPoints(100);
                             if (!r.isTiny()) {
-                                Rock tiny = new Rock();
-                                Rock tiny2 = new Rock();
-                                Rock tiny3 = new Rock();
-                                Rock tiny4 = new Rock();
-
-                                //probe a meterlas en un for para no tener tanto codigo pero no funciono
-                                tiny.position.set(r.position.x, r.position.y);
-                                tiny2.position.set(r.position.x, r.position.y);
-                                tiny3.position.set(r.position.x, r.position.y);
-                                tiny4.position.set(r.position.x, r.position.y);
-
-                                rockList.add(tiny);
-                                rockList.add(tiny2);
-                                rockList.add(tiny3);
-                                rockList.add(tiny4);
+                              int  nTinyRock = (int)(Math.random()*2+2);
+                                for (int i = 0; i < nTinyRock ; i++) {
+                                    Rock tiny = new Rock();
+                                    tiny.position.set(r.position.x, r.position.y);
+                                    rockList.add(tiny);
+                                }
                             }
 
                             rockList.remove(r);
