@@ -19,6 +19,7 @@ import java.util.TimerTask;
 public class Game extends Application {
 
     AnimationTimer gameLoop;
+    private final int frameRate = 60;
 
     @Override
     public void start(Stage primaryStage) {
@@ -147,7 +148,7 @@ public class Game extends Application {
                     Enemy e = iterator.next();
                     if (e.isAlive()){
                         e.render(context);
-                        e.update(1/60f);
+                        e.update(1f/frameRate);
                         e.checkIfLaserHitShip(ship);
                     }else{
                         iterator.remove();
@@ -165,7 +166,7 @@ public class Game extends Application {
                     Rock rock = iterator.next();
                     if (rock.isAlive()){
                         rock.render(context);
-                        rock.update(1/60.0D);
+                        rock.update(1f/frameRate);
                     }else{
                         iterator.remove();
                         rock = null;
@@ -180,7 +181,7 @@ public class Game extends Application {
                 }
 
                 //spaceship.update(1/60.0); //fps -- cambiar otro update
-                ship.update(1/60.0);
+                ship.update(1f/frameRate);
 
 
                 if (ship.isAlive())
@@ -196,7 +197,7 @@ public class Game extends Application {
                     PowerUp p = iterator.next();
                     if (p.isActive()){
                         p.render(context);
-                        p.update(1/60f);
+                        p.update(1f/frameRate);
                     }else{
                         iterator.remove();
                         p = null;
@@ -212,7 +213,7 @@ public class Game extends Application {
                     Laser l = iterator.next();
                     if (l.isAlive()){
                         l.render(context);
-                        l.update(1/60f);
+                        l.update(1f/frameRate);
                     }else{
                         lasers.remove(l);
                         l=null;
