@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import models.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -142,13 +143,14 @@ public class Game extends Application {
                 keyJustPressedList.clear();
                 background.render(context);
 
-                for (Enemy e : enemies) {
+                for (Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();){
+                    Enemy e = iterator.next();
                     if (e.isAlive()){
                         e.render(context);
                         e.update(1/60f);
                         e.checkIfLaserHitShip(ship);
                     }else{
-                        enemies.remove(e);
+                        iterator.remove();
                         e = null;
                         break;
                     }
@@ -159,17 +161,18 @@ public class Game extends Application {
                     }
                 }
 
-                for (Rock rock: rockList){
+                for (Iterator<Rock> iterator = rockList.iterator(); iterator.hasNext();){
+                    Rock rock = iterator.next();
                     if (rock.isAlive()){
                         rock.render(context);
                         rock.update(1/60.0D);
                     }else{
-                        rockList.remove(rock);
+                        iterator.remove();
                         rock = null;
                         break;
                     }
                     if (rock.overlaps(ship) && ship.isAlive()) {
-                        rockList.remove(rock);
+                        iterator.remove();
                         rock.die();
                         if (!ship.isShieldActive())
                             ship.hit();
@@ -185,16 +188,17 @@ public class Game extends Application {
                 else{
                     timerNewRock.cancel();
                     timerNewEnemy.cancel();
+                    timerNewPowerUp.cancel();
                     gameOver();
                 }
 
-                //Render and check overlap of powerups
-                for (PowerUp p : powerUps) {
+                for (Iterator<PowerUp> iterator = powerUps.iterator(); iterator.hasNext();){
+                    PowerUp p = iterator.next();
                     if (p.isActive()){
                         p.render(context);
                         p.update(1/60f);
                     }else{
-                        powerUps.remove(p);
+                        iterator.remove();
                         p = null;
                         break;
                     }
@@ -204,7 +208,8 @@ public class Game extends Application {
                     }
                 }
 
-                for (Laser l : lasers) {
+                for (Iterator<Laser> iterator = lasers.iterator(); iterator.hasNext();){
+                    Laser l = iterator.next();
                     if (l.isAlive()){
                         l.render(context);
                         l.update(1/60f);
@@ -250,6 +255,7 @@ public class Game extends Application {
                         }
                     }
                 }
+
 
                 context.setFill(Color.WHITE);
                 context.setStroke(Color.GREEN);
