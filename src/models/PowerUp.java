@@ -10,6 +10,8 @@ public class PowerUp extends Sprite{
         Shield
     }
 
+    private double timeAlive;
+
     private PowerUpType powerUpType;
     private boolean active;
     private double x = (int)(Math.random()*1600);
@@ -40,6 +42,10 @@ public class PowerUp extends Sprite{
         active = false;
     }
 
+    public double getTimeAlive() {
+        return timeAlive;
+    }
+
     public PowerUpType getPowerUpType() {
         return powerUpType;
     }
@@ -56,5 +62,13 @@ public class PowerUp extends Sprite{
         imageFileNames.add("Images/Space Shooter Visual Assets/PNG/Power-ups/pill_blue.png");
         imageFileNames.add("Images/Space Shooter Visual Assets/PNG/Power-ups/powerupBlue_shield.png");
         return imageFileNames.get(i);
+    }
+
+    @Override
+    public void update(double deltaTime){
+        timeAlive += deltaTime;
+        //actualizacion de la posicion acorde a la velocidad
+        this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
+        this.wrap(1600,900);
     }
 }

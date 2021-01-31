@@ -12,6 +12,8 @@ public class Ship extends Sprite {
     private boolean activeShield;
     private double shieldTimer;
     private Image shieldImage;
+    private Image boostImage;
+    private boolean boosting;
     private boolean rapidFire;
     private double rapidFireTimer;
 
@@ -20,6 +22,7 @@ public class Ship extends Sprite {
         alive = true;
         lives = 3;
         shieldImage = new Image("Images/spr_shield.png");
+        boostImage = new Image("Images/Space Shooter Visual Assets/PNG/Effects/fire05.png");
     }
 
     public int getPoints() {
@@ -36,6 +39,7 @@ public class Ship extends Sprite {
             case "W":
                 this.velocity.setLength(200); //velocidad inicial
                 this.velocity.setAngle(this.rotation);
+                boosting = true;
                 break;
             case "D":
                 this.rotation +=3;
@@ -49,6 +53,7 @@ public class Ship extends Sprite {
                     this.velocity.setLength(0); //velocidad 0 al inicio
                 }else {
                     this.velocity.setLength(50);
+                    boosting = false;
                 }
                 break;
         }
@@ -113,6 +118,9 @@ public class Ship extends Sprite {
         context.drawImage(this.image, 0,0);
         if (activeShield)
             context.drawImage(shieldImage, -20, 0);
+
+        if (boosting)
+            context.drawImage(boostImage, -30, 42);
 
         context.restore();
     }

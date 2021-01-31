@@ -208,15 +208,15 @@ public class Game extends Application {
                 if (ship.isAlive())
                     ship.render(context);
                 else{
-//                    timerNewRock.cancel();
-//                    timerNewEnemy.cancel();
-//                    timerNewPowerUp.cancel();
+                    timerNewRock.cancel();
+                    timerNewEnemy.cancel();
+                    timerNewPowerUp.cancel();
                     gameOver();
                 }
 
                 for (Iterator<PowerUp> iterator = powerUps.iterator(); iterator.hasNext();){
                     PowerUp p = iterator.next();
-                    if (p.isActive()){
+                    if (p.isActive() && p.getTimeAlive()<7){
                         p.render(context);
                         p.update(1f/frameRate);
                     }else{
