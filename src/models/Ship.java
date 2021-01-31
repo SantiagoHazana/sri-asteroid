@@ -1,6 +1,8 @@
 package models;
 
-import java.awt.*;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Ship extends Sprite {
 
@@ -13,19 +15,11 @@ public class Ship extends Sprite {
     private boolean rapidFire;
     private double rapidFireTimer;
 
-
-    public Ship(){
-        super();
-        alive = true;
-        lives = 3;
-        activeShield = false;
-        rapidFire = false;
-    }
-
     public Ship(String imageFileName){
         super(imageFileName);
         alive = true;
         lives = 3;
+        shieldImage = new Image("Images/spr_shield.png");
     }
 
     public int getPoints() {
@@ -87,6 +81,7 @@ public class Ship extends Sprite {
             die();
     }
 
+    @Override
     public void update(double deltaTime){
         if (activeShield)
             shieldTimer += deltaTime;
@@ -105,6 +100,21 @@ public class Ship extends Sprite {
         //actualizacion de la posicion acorde a la velocidad
         this.position.add(this.velocity.x * deltaTime, this.velocity.y * deltaTime);
         this.wrap(1600,900);
+    }
+
+    @Override
+    public void render(GraphicsContext context){
+        context.save();
+
+        context.translate(this.position.x, this.position.y);
+        context.rotate(this.rotation);
+        //rotacion desde el centro del sprite -- default rotacion desde el top-left de la pantalla
+        context.translate(-this.image.getHeight()/2, -this.image.getHeight()/2);
+        context.drawImage(this.image, 0,0);
+        if (activeShield)
+            context.drawImage(shieldImage, -20, 0);
+
+        context.restore();
     }
 
     public void powerUp(PowerUp p) {

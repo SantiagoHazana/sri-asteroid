@@ -22,7 +22,7 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Prueba Asteroid");
+        primaryStage.setTitle("Dioretsa");
         BorderPane root = new BorderPane();
         Scene mainScene = new Scene(root);
         primaryStage.setScene(mainScene);
