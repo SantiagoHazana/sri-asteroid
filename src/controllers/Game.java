@@ -2,6 +2,8 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import models.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
@@ -22,13 +26,19 @@ public class Game extends Application {
     private final int frameRate = 60;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dioretsa");
-        BorderPane root = new BorderPane();
+        Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
         Scene mainScene = new Scene(root);
         primaryStage.setScene(mainScene);
 
-        //explicacion
+
+        startGame((BorderPane) root, primaryStage, mainScene);
+
+    }
+
+    private void startGame(BorderPane root, Stage primaryStage, Scene mainScene){
+
         Canvas canvas = new Canvas(1600,900);
         GraphicsContext context = canvas.getGraphicsContext2D();
         root.setCenter(canvas);
@@ -254,7 +264,7 @@ public class Game extends Application {
                             l.die();
                             ship.addPoints(100);
                             if (!r.isTiny()) {
-                              int  nTinyRock = (int)(Math.random()*2+2);
+                                int  nTinyRock = (int)(Math.random()*2+2);
                                 for (int i = 0; i < nTinyRock ; i++) {
                                     Rock tiny = new Rock();
                                     tiny.position.set(r.position.x, r.position.y);
@@ -278,6 +288,7 @@ public class Game extends Application {
                 context.strokeText("Vidas: " + ship.getLives() + "| Puntaje: " + ship.getPoints(), 990, 40);
             }
         };
+
         gameLoop.start();
         primaryStage.show();
     }

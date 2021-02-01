@@ -1,7 +1,5 @@
 package toDoList;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,13 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import toDoList.dataModel.ToDoData;
 import toDoList.dataModel.ToDoItem;
-
 import java.io.IOException;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
