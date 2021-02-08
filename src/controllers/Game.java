@@ -2,11 +2,15 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -23,18 +27,32 @@ import java.util.TimerTask;
 public class Game extends Application {
 
     AnimationTimer gameLoop;
+    Stage stage;
+    Parent root;
+    Scene mainScene;
     private final int frameRate = 60;
+    private boolean game = false;
+
+    @FXML
+    public Button btn;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dioretsa");
-        Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
-        Scene mainScene = new Scene(root);
+        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        mainScene = new Scene(root, 1600, 900);
         primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
 
-
-        startGame((BorderPane) root, primaryStage, mainScene);
-
+    public void game() throws IOException {
+        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml")); //cambiar
+        stage = (Stage) btn.getScene().getWindow();
+        mainScene = new Scene(root, 1600, 900);
+        stage.setTitle("Dioretsa");
+        stage.setScene(mainScene);
+        startGame((BorderPane) root, stage, mainScene);
+        ((Stage) btn.getScene().getWindow()).close();
     }
 
     private void startGame(BorderPane root, Stage primaryStage, Scene mainScene){
@@ -221,7 +239,11 @@ public class Game extends Application {
                     timerNewRock.cancel();
                     timerNewEnemy.cancel();
                     timerNewPowerUp.cancel();
-                    gameOver();
+                    try {
+                        gameOver();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 for (Iterator<PowerUp> iterator = powerUps.iterator(); iterator.hasNext();){
@@ -293,7 +315,12 @@ public class Game extends Application {
         primaryStage.show();
     }
 
-    private void gameOver() {
+    private void gameOver() throws IOException {
         gameLoop.stop();
+        root = FXMLLoader.load(getClass().getResource("ranking.fxml")); //cambiar
+        mainScene = new Scene(root, 1600, 900);
+        stage.setTitle("Ranking");
+        stage.setScene(mainScene);
+        stage.show();
     }
 }

@@ -13,8 +13,8 @@
     <center>
 <!--        <Label style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 380;-->
 <!--            -fx-max-height: 250; -fx-border-radius: 50" fx:id="label" text="START" />-->
-        <Button style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 680;
-            -fx-max-height: 250; -fx-border-radius: 50" fx:id="btn" text="START" onAction="#game" />
+        <Label style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 880;
+            -fx-max-height: 250; -fx-border-radius: 50" fx:id="label" text="GAME OVER" />
     </center>
 
 
