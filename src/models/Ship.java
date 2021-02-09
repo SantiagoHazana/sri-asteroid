@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 
 public class Ship extends Sprite {
 
+    private String name;
     private boolean alive;
     private int lives;
     private int points;
@@ -17,8 +18,9 @@ public class Ship extends Sprite {
     private boolean rapidFire;
     private double rapidFireTimer;
 
-    public Ship(String imageFileName){
+    public Ship(String name, String imageFileName){
         super(imageFileName);
+        this.name = name;
         alive = true;
         lives = 3;
         shieldImage = new Image("Images/spr_shield.png");

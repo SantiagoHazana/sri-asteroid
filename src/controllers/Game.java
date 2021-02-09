@@ -46,7 +46,7 @@ public class Game extends Application {
     }
 
     public void game() throws IOException {
-        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml")); //cambiar
+        root = FXMLLoader.load(getClass().getResource("game.fxml")); //cambiar
         stage = (Stage) btn.getScene().getWindow();
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Dioretsa");
@@ -95,7 +95,7 @@ public class Game extends Application {
                 }
         );
 
-        Ship ship = new Ship("Images/Space Shooter Visual Assets/PNG/playerShip1_blue.png");
+        Ship ship = new Ship("test","Images/Space Shooter Visual Assets/PNG/playerShip1_blue.png");
         ship.position.set(820,400);
         ship.rotation -=90;
 
@@ -317,7 +317,7 @@ public class Game extends Application {
 
     private void gameOver() throws IOException {
         gameLoop.stop();
-        root = FXMLLoader.load(getClass().getResource("ranking.fxml")); //cambiar
+        root = FXMLLoader.load(getClass().getResource("gameOver.fxml")); //cambiar
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
