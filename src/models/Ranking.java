@@ -20,7 +20,7 @@ public class Ranking {
         }
 
         try {
-            db = DriverManager.getConnection("jdbc:mysql://localhost/dioretsa", "root", "");
+            db = DriverManager.getConnection("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068", "sql7392068", "x7BRGYx8we");
         } catch (SQLException throwables) {
             System.out.println("Can't connect to database");
         }
