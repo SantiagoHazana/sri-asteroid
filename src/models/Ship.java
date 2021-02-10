@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 public class Ship extends Sprite {
 
-    private String name;
+    private String playerName;
     private boolean alive;
     private int lives;
     private int points;
@@ -20,7 +20,7 @@ public class Ship extends Sprite {
 
     public Ship(String name, String imageFileName){
         super(imageFileName);
-        this.name = name;
+        this.playerName = name;
         alive = true;
         lives = 3;
         shieldImage = new Image("Images/spr_shield.png");
@@ -34,6 +34,10 @@ public class Ship extends Sprite {
     public void addPoints(int points) {
         if (alive)
             this.points += points;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 
     public void move(String key){

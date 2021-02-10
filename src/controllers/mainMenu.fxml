@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="controllers.Game"
-            xmlns:fx="http://javafx.com/fxml">
+<GridPane fx:controller="controllers.Game"
+            xmlns:fx="http://javafx.com/fxml"
+                alignment="CENTER">
 
-    <top>
-        <Label text="Ingrese su nombre" alignment="CENTER"/>
-    </top>
-    <center>
+        <Label text="Ingrese su nombre" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
+        <TextField text="Nombre" fx:id="playerName" maxWidth="100" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
+        <Button fx:id="btn" text="START" onAction="#game" alignment="CENTER"
+                GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
 
-        <TextField text="Nombre" maxWidth="100"/>
-    </center>
-    <bottom>
-<!--        <Label style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 380;-->
-<!--            -fx-max-height: 250; -fx-border-radius: 50" fx:id="label" text="START" />-->
-        <Button style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 680;
-            -fx-max-height: 250; -fx-border-radius: 50" fx:id="btn" text="START" onAction="#game" alignment="CENTER" maxWidth="150"/>
-    </bottom>
-
-
-</BorderPane>
+</GridPane>

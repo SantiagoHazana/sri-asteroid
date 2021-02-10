@@ -7,15 +7,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="controllers.Game"
-            xmlns:fx="http://javafx.com/fxml">
-
-    <center>
-<!--        <Label style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 380;-->
-<!--            -fx-max-height: 250; -fx-border-radius: 50" fx:id="label" text="START" />-->
-        <Label style="-fx-font-size: 120; -fx-border-style: dotted ; -fx-max-width: 880;
-            -fx-max-height: 250; -fx-border-radius: 50" fx:id="label" text="GAME OVER" />
-    </center>
+<GridPane fx:controller="controllers.Game"
+            xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
 
 
-</BorderPane>
+
+
+</GridPane>

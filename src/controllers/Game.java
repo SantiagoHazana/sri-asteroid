@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -35,6 +36,8 @@ public class Game extends Application {
 
     @FXML
     public Button btn;
+    @FXML
+    public TextField playerName;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -95,7 +98,7 @@ public class Game extends Application {
                 }
         );
 
-        Ship ship = new Ship("test","Images/Space Shooter Visual Assets/PNG/playerShip1_blue.png");
+        Ship ship = new Ship(playerName.getText(),"Images/Space Shooter Visual Assets/PNG/playerShip1_blue.png");
         ship.position.set(820,400);
         ship.rotation -=90;
 
@@ -240,6 +243,7 @@ public class Game extends Application {
                     timerNewEnemy.cancel();
                     timerNewPowerUp.cancel();
                     try {
+                        Ranking.addRankingPoints(ship.getPlayerName(), ship.getPoints());
                         gameOver();
                     } catch (IOException e) {
                         e.printStackTrace();
