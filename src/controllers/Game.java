@@ -2,7 +2,7 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import models.*;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
@@ -38,6 +39,8 @@ public class Game extends Application {
     public Button btn;
     @FXML
     public TextField playerName;
+    @FXML
+    public ListView<Rank> rankingView;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -55,7 +58,11 @@ public class Game extends Application {
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);
         startGame((BorderPane) root, stage, mainScene);
-        ((Stage) btn.getScene().getWindow()).close();
+//        try {
+//            ((Stage) btn.getScene().getWindow()).close();
+//        }catch (InvocationTargetException e){
+//
+//        }
     }
 
     private void startGame(BorderPane root, Stage primaryStage, Scene mainScene){
@@ -244,6 +251,7 @@ public class Game extends Application {
                     timerNewPowerUp.cancel();
                     try {
                         Ranking.addRankingPoints(ship.getPlayerName(), ship.getPoints());
+                        Ranking.getRank();
                         gameOver();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -321,7 +329,9 @@ public class Game extends Application {
 
     private void gameOver() throws IOException {
         gameLoop.stop();
-        root = FXMLLoader.load(getClass().getResource("gameOver.fxml")); //cambiar
+        root = FXMLLoader.load(getClass().getResource("ranking.fxml"));
+//        rankingView = new ListView((ObservableList) Ranking.getRank());
+        Ranking.closeRanking();
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
