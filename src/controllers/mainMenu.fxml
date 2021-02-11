@@ -9,7 +9,7 @@
 
         <Label text="Ingrese su nombre" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
         <TextField text="Nombre" fx:id="playerName" maxWidth="100" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
-        <Button fx:id="btn" text="START" onAction="#game" alignment="CENTER"
+        <Button fx:id="buttonPlay" text="START" onAction="#game" alignment="CENTER"
                 GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="CENTER"/>
 
 </GridPane>

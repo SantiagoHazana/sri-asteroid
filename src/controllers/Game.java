@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +19,6 @@ import javafx.stage.Stage;
 import models.*;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
@@ -32,11 +30,13 @@ public class Game extends Application {
     Stage stage;
     Parent root;
     Scene mainScene;
-    private final int frameRate = 60;
+    private final int frameRate = 160;
     private boolean game = false;
 
     @FXML
-    public Button btn;
+    public Button buttonPlay;
+    @FXML
+    public Button buttonRestart;
     @FXML
     public TextField playerName;
     @FXML
@@ -51,9 +51,17 @@ public class Game extends Application {
         primaryStage.show();
     }
 
+    public void restartGame() throws IOException {
+        root = FXMLLoader.load(getClass().getResource("mainMenu.fxml")); //cambiar
+        stage = (Stage) buttonRestart.getScene().getWindow();
+        mainScene = new Scene(root, 1600, 900);
+        stage.setTitle("Dioretsa");
+        stage.setScene(mainScene);
+    }
+
     public void game() throws IOException {
         root = FXMLLoader.load(getClass().getResource("game.fxml")); //cambiar
-        stage = (Stage) btn.getScene().getWindow();
+        stage = (Stage) buttonPlay.getScene().getWindow();
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);

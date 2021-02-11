@@ -10,7 +10,7 @@
 
     </ListView>
 
-    <Button text="Reiniciar" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Button text="Reiniciar" fx:id="buttonRestart" onAction="#restartGame" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
 
 </GridPane>
