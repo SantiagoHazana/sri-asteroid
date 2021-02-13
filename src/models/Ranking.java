@@ -3,7 +3,6 @@ package models;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
-import java.util.Collections;
 import java.util.List;
 
 public class Ranking {
@@ -47,7 +46,7 @@ public class Ranking {
             System.out.println("Can't connect to database\n" + throwables.getMessage());
         }
         try {
-            ResultSet resultSet = db.createStatement().executeQuery("select * from ranking");
+            ResultSet resultSet = db.createStatement().executeQuery("select * from ranking order by score desc limit 10");
             while (resultSet.next()){
                 String name = resultSet.getString("name");
                 int score = resultSet.getInt("score");
@@ -59,7 +58,11 @@ public class Ranking {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
         }
-        Collections.sort(rank, Collections.reverseOrder());
+//        Collections.sort(rank, Collections.reverseOrder());
+        for (Rank r:
+             rank) {
+            System.out.println(r);
+        }
         return rank;
     }
 
@@ -67,12 +70,12 @@ public class Ranking {
         return ranking;
     }
 
-    public static void closeRanking(){
-        try {
-            db.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
+//    public static void closeRanking(){
+//        try {
+//            db.close();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//    }
 
 }

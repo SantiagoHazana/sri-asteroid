@@ -3,14 +3,19 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <GridPane fx:controller="controllers.Game"
-          xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
+          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" fx:id="gridPaneRanking">
 
-    <ListView fx:id="rankingView" GridPane.rowIndex="0" GridPane.columnIndex="0">
+    <Label text="Game Over" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Label text="Puntaje final: " fx:id="finalScoreLabel" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+    <ListView fx:id="rankingView" GridPane.rowIndex="2" GridPane.columnIndex="0">
 
     </ListView>
 
-    <Button text="Reiniciar" fx:id="buttonRestart" onAction="#restartGame" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Button text="Reiniciar" fx:id="buttonRestart" onAction="#restartGame" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <Button text="Salir" onAction="#quitGame" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
 
 </GridPane>

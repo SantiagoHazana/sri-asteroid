@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,10 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -30,9 +33,11 @@ public class Game extends Application {
     Stage stage;
     Parent root;
     Scene mainScene;
-    private final int frameRate = 160;
+    private final int frameRate = 60;
     private boolean game = false;
 
+    @FXML
+    public GridPane gridPaneRanking;
     @FXML
     public Button buttonPlay;
     @FXML
@@ -41,6 +46,8 @@ public class Game extends Application {
     public TextField playerName;
     @FXML
     public ListView<Rank> rankingView;
+    @FXML
+    public Label finalScoreLabel;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -258,9 +265,8 @@ public class Game extends Application {
                     timerNewEnemy.cancel();
                     timerNewPowerUp.cancel();
                     try {
-                        Ranking.addRankingPoints(ship.getPlayerName(), ship.getPoints());
-                        Ranking.getRank();
-                        gameOver();
+
+                        gameOver(ship.getPlayerName(), ship.getPoints());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -335,14 +341,21 @@ public class Game extends Application {
         primaryStage.show();
     }
 
-    private void gameOver() throws IOException {
+    private void gameOver(String name, int score) throws IOException {
         gameLoop.stop();
         root = FXMLLoader.load(getClass().getResource("ranking.fxml"));
-//        rankingView = new ListView((ObservableList) Ranking.getRank());
-        Ranking.closeRanking();
+//        Ranking.closeRanking();
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
         stage.show();
+        Ranking.addRankingPoints(name, score);
+//        finalScoreLabel.setText("Puntaje final: " + score);
+//        rankingView.getItems().setAll(Ranking.getRank());
+    }
+
+    public void quitGame() throws Exception {
+        stop();
+        System.exit(0);
     }
 }

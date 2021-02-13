@@ -24,4 +24,12 @@ public class Rank implements Comparable{
         Rank other = (Rank) o;
         return Integer.compare(score, other.getScore());
     }
+
+    @Override
+    public String toString() {
+        return "Rank{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
