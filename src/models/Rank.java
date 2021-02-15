@@ -4,10 +4,12 @@ public class Rank implements Comparable{
 
     private String name;
     private int score;
+    private String dateTime;
 
-    public Rank(String name, int score) {
+    public Rank(String name, int score, String dateTime) {
         this.name = name;
         this.score = score;
+        this.dateTime = dateTime;
     }
 
     public String getName() {
@@ -16,6 +18,10 @@ public class Rank implements Comparable{
 
     public int getScore() {
         return score;
+    }
+
+    public String getDateTime(){
+        return dateTime;
     }
 
 
@@ -30,6 +36,7 @@ public class Rank implements Comparable{
         return "Rank{" +
                 "name='" + name + '\'' +
                 ", score=" + score +
+                ", dateTime='" + dateTime + '\'' +
                 '}';
     }
 }

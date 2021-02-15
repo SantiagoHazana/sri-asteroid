@@ -3,7 +3,9 @@ package models;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Date;
 
 public class Ranking {
 
@@ -21,14 +23,19 @@ public class Ranking {
 
     public static void addRankingPoints(String playerName, int score){
         try {
-            db = DriverManager.getConnection("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068", "sql7392068", "x7BRGYx8we");
+            db = DriverManager.getConnection("jdbc:mysql://92.186.108.32:3306/dioretsa", "admin", "Dioretsa");
         } catch (SQLException throwables) {
             System.out.println("Can't connect to database\n" + throwables.getMessage());
         }
         try {
-            PreparedStatement ps = db.prepareStatement("insert into ranking value (?, ?)");
+            Date dt = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(dt);
+
+            PreparedStatement ps = db.prepareStatement("insert into ranking(name, score, scoreDate) value (?, ?, ?)");
             ps.setString(1, playerName);
             ps.setInt(2, score);
+            ps.setString(3, currentTime);
             ps.executeUpdate();
             db.close();
         } catch (SQLException throwables) {
@@ -41,7 +48,7 @@ public class Ranking {
     public static List<Rank> getRank() {
         List<Rank> rank = FXCollections.observableArrayList();
         try {
-            db = DriverManager.getConnection("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068", "sql7392068", "x7BRGYx8we");
+            db = DriverManager.getConnection("jdbc:mysql://92.186.108.32:3306/dioretsa", "admin", "Dioretsa");
         } catch (SQLException throwables) {
             System.out.println("Can't connect to database\n" + throwables.getMessage());
         }
@@ -50,7 +57,8 @@ public class Ranking {
             while (resultSet.next()){
                 String name = resultSet.getString("name");
                 int score = resultSet.getInt("score");
-                Rank rank1 = new Rank(name, score);
+                String dateTime = resultSet.getString("scoreDate");
+                Rank rank1 = new Rank(name, score, dateTime);
                 rank.add(rank1);
 
             }

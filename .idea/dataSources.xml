@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Dioretsa2" uuid="7634495e-ae99-4a4b-b545-892be471ff6c">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://92.186.108.32:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
