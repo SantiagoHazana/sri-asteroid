@@ -18,7 +18,7 @@
                 <Reflection />
             </effect>
         </Label>
-        <ListView layoutX="555.0" layoutY="412.0" prefHeight="319.0" prefWidth="539.0" style="-fx-background-color: #323232;" />
+        <ListView fx:id="rankingView" layoutX="555.0" layoutY="412.0" prefHeight="319.0" prefWidth="539.0" style="-fx-background-color: #323232;" />
         <Label layoutX="554.0" layoutY="340.0" prefHeight="38.0" prefWidth="176.0" text="RANKING" textFill="#d3c7c7">
             <font>
                 <Font size="41.0" />
@@ -36,3 +36,4 @@
         </Button>
     </children>
 </Pane>
+
