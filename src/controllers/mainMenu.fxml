@@ -17,13 +17,10 @@
                         <effect>
                                 <Reflection />
                         </effect>
-                        <cursor>
-                                <Cursor fx:constant="NONE" />
-                        </cursor>
                 </Label>
-                <Label layoutX="591.0" layoutY="477.0" prefHeight="63.0" prefWidth="150.0" text="PLAYER" textFill="#c3bdbd">
+                <Label layoutX="578.0" layoutY="465.0" prefHeight="90.0" prefWidth="178.0" text="PLAYER" textFill="#c3bdbd">
                         <font>
-                                <Font size="44.0" />
+                                <Font size="50.0" />
                         </font>
                 </Label>
                 <TextField fx:id="playerName" layoutX="862.0" layoutY="481.0" opacity="0.71" prefHeight="57.0" prefWidth="191.0">
@@ -36,7 +33,7 @@
                                 <Font size="35.0" />
                         </font>
                 </Button>
-                <Button layoutX="862.0" layoutY="704.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="191.0" style="-fx-background-color: #525252;" text="EXIT" textFill="#d3c7c7">
+                <Button layoutX="862.0" layoutY="704.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="191.0" style="-fx-background-color: #525252;" text="EXIT" textFill="#d3c7c7" onAction="#quitGame">
                         <font>
                                 <Font size="35.0" />
                         </font>

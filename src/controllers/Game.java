@@ -75,11 +75,6 @@ public class Game extends Application {
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);
         startGame((BorderPane) root, stage, mainScene);
-//        try {
-//            ((Stage) btn.getScene().getWindow()).close();
-//        }catch (InvocationTargetException e){
-//
-//        }
     }
 
     private void startGame(BorderPane root, Stage primaryStage, Scene mainScene){
