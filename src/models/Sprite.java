@@ -23,10 +23,6 @@ public class Sprite {
         setImage(imageFileName);
     }
 
-    public void setImagePosition(){
-
-    }
-
     //creacion de nave/roca
     public void setImage(String imageFileName){
         this.image = new Image(imageFileName);

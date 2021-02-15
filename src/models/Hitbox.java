@@ -14,11 +14,6 @@ public class Hitbox {
         this.setSize(1,1);
     }
 
-    public Hitbox(double x, double y, double w, double h){
-        this.setPosition(x,y);
-        this.setSize(w,h);
-    }
-
     //posicion nave/rocas
     public void setPosition(double x, double y){
         this.x = x;
