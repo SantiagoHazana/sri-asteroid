@@ -48,16 +48,6 @@ public class Vector {
             //escala el vector a longitud 1/x
         this.multiply(1/currentLength);
         this.multiply(l);
-
-
-
-    }
-
-    //sacar angulo -- algo de trigonometria
-    public double getAngle(){
-
-        return Math.toDegrees(Math.atan2(this.y, this.x));
-
     }
 
     public void setAngle(double angleDegrees){

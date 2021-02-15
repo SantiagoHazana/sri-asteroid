@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -35,6 +35,8 @@ public class Game extends Application {
     Scene mainScene;
     private final int frameRate = 60;
     private boolean game = false;
+    private int screenWidth = 1600;
+    private int screenHeight = 900;
 
     @FXML
     public GridPane gridPaneRanking;
@@ -53,7 +55,7 @@ public class Game extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dioretsa");
         root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        mainScene = new Scene(root, 1600, 900);
+        mainScene = new Scene(root, screenWidth, screenHeight);
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
@@ -61,7 +63,7 @@ public class Game extends Application {
     public void restartGame() throws IOException {
         root = FXMLLoader.load(getClass().getResource("mainMenu.fxml")); //cambiar
         stage = (Stage) buttonRestart.getScene().getWindow();
-        mainScene = new Scene(root, 1600, 900);
+        mainScene = new Scene(root, screenWidth, screenHeight);
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);
     }
@@ -69,7 +71,7 @@ public class Game extends Application {
     public void game() throws IOException {
         root = FXMLLoader.load(getClass().getResource("game.fxml")); //cambiar
         stage = (Stage) buttonPlay.getScene().getWindow();
-        mainScene = new Scene(root, 1600, 900);
+        mainScene = new Scene(root, screenWidth, screenHeight);
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);
         startGame((BorderPane) root, stage, mainScene);
@@ -82,7 +84,7 @@ public class Game extends Application {
 
     private void startGame(BorderPane root, Stage primaryStage, Scene mainScene){
 
-        Canvas canvas = new Canvas(1600,900);
+        Canvas canvas = new Canvas(screenWidth, screenHeight);
         GraphicsContext context = canvas.getGraphicsContext2D();
         root.setCenter(canvas);
 

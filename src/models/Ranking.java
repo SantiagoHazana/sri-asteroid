@@ -66,7 +66,7 @@ public class Ranking {
         return rank;
     }
 
-    public static Ranking getInstance(){
+    public Ranking getInstance(){
         return ranking;
     }
 

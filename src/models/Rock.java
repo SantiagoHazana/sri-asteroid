@@ -8,14 +8,14 @@ public class Rock extends Sprite{
     private double x = (int)(Math.random()*1600);;
     private double y = (int)(Math.random()*900);;
     private double angle = Math.random()*360;
-    private double tempName = (int)(Math.random()*50+125);
-    private double tempName2 = (int)(Math.random()*75+150);
+    private double initialRockVelocity = (int)(Math.random()*50+125);
+    private double initialTinyRockVelocity = (int)(Math.random()*75+150);
     private boolean alive;
     private boolean isTiny;
 
     public Rock(){
         this.position.set(x,y);
-        this.velocity.setLength(this.tempName2);
+        this.velocity.setLength(this.initialTinyRockVelocity);
         this.velocity.setAngle(this.angle);
         alive =  true;
         isTiny = true;
@@ -24,8 +24,7 @@ public class Rock extends Sprite{
     }
 
     public Rock(String imageFileName){
-        //this.position.set(this.x,this.y);
-        this.velocity.setLength(this.tempName);
+        this.velocity.setLength(this.initialRockVelocity);
         this.velocity.setAngle(this.angle);
         isTiny = false;
         alive =  true;
