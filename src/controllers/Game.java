@@ -47,7 +47,7 @@ public class Game extends Application {
     @FXML
     public TextField playerName;
     @FXML
-    public ListView<Rank> rankingView;
+    public ListView<Rank> rankView;
     @FXML
     public Label finalScoreLabel;
 
@@ -342,8 +342,8 @@ public class Game extends Application {
 
     private void gameOver(String name, int score) throws IOException {
         gameLoop.stop();
+
         root = FXMLLoader.load(getClass().getResource("ranking.fxml"));
-//        Ranking.closeRanking();
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
@@ -351,7 +351,7 @@ public class Game extends Application {
         stage.show();
         Ranking.addRankingPoints(name, score);
 //        finalScoreLabel.setText("Puntaje final: " + score);
-//        rankingView.getItems().setAll(Ranking.getRank());
+//        rankView.getItems().setAll(Ranking.getRank());
     }
 
     public void quitGame() throws Exception {

@@ -33,10 +33,6 @@ public class Rank implements Comparable{
 
     @Override
     public String toString() {
-        return "Rank{" +
-                "name='" + name + '\'' +
-                ", score=" + score +
-                ", dateTime='" + dateTime + '\'' +
-                '}';
+        return String.format("%s: %d - %s", name, score, dateTime);
     }
 }
