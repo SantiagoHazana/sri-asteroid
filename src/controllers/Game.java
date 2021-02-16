@@ -342,14 +342,14 @@ public class Game extends Application {
 
     private void gameOver(String name, int score) throws IOException {
         gameLoop.stop();
-
+        Ranking.addRankingPoints(name, score);
         root = FXMLLoader.load(getClass().getResource("ranking.fxml"));
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
         stage.setResizable(false);
         stage.show();
-        Ranking.addRankingPoints(name, score);
+
 //        finalScoreLabel.setText("Puntaje final: " + score);
 //        rankView.getItems().setAll(Ranking.getRank());
     }
