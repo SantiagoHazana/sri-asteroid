@@ -57,6 +57,7 @@ public class Game extends Application {
         root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         mainScene = new Scene(root, screenWidth, screenHeight);
         primaryStage.setScene(mainScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -74,6 +75,7 @@ public class Game extends Application {
         mainScene = new Scene(root, screenWidth, screenHeight);
         stage.setTitle("Dioretsa");
         stage.setScene(mainScene);
+        stage.setResizable(false);
         startGame((BorderPane) root, stage, mainScene);
     }
 
@@ -345,6 +347,7 @@ public class Game extends Application {
         mainScene = new Scene(root, 1600, 900);
         stage.setTitle("Ranking");
         stage.setScene(mainScene);
+        stage.setResizable(false);
         stage.show();
         Ranking.addRankingPoints(name, score);
 //        finalScoreLabel.setText("Puntaje final: " + score);
