@@ -7,10 +7,26 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
+/**
+ * This class is a singleton
+ */
+
 public class Ranking {
+
+    // *************************
+    // Attributes
+    // *************************
 
     public static Ranking ranking = new Ranking();
     public static Connection db;
+
+    // *************************
+    // Constructors
+    // *************************
+
+    /**
+     * Private constructor, load the mysql driver
+     */
 
     private Ranking(){
         try{
@@ -20,6 +36,12 @@ public class Ranking {
         }
 
     }
+
+    /**
+     * Performs a connection to the database and inserts the new score
+     * @param playerName name of the player
+     * @param score score of the player
+     */
 
     public static void addRankingPoints(String playerName, int score){
         try {
@@ -44,6 +66,11 @@ public class Ranking {
 
 
     }
+
+    /**
+     * Returns a list with the 10 highest scores from the database
+     * @return 10 scores ordered
+     */
 
     public static List<Rank> getRank() {
         List<Rank> rank = FXCollections.observableArrayList();
@@ -74,16 +101,13 @@ public class Ranking {
         return rank;
     }
 
-    public Ranking getInstance(){
+    /**
+     * Returns the instance of the singleton
+     * @return the instance
+     */
+
+    public static Ranking getInstance(){
         return ranking;
     }
-
-//    public static void closeRanking(){
-//        try {
-//            db.close();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//    }
 
 }
