@@ -23,7 +23,7 @@ public class Ranking {
 
     public static void addRankingPoints(String playerName, int score){
         try {
-            db = DriverManager.getConnection("jdbc:mysql://92.186.108.32:3306/dioretsa", "admin", "Dioretsa");
+            db = DriverManager.getConnection("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068", "sql7392068", "x7BRGYx8we");
         } catch (SQLException throwables) {
             System.out.println("Can't connect to database\n" + throwables.getMessage());
         }
@@ -48,7 +48,7 @@ public class Ranking {
     public static List<Rank> getRank() {
         List<Rank> rank = FXCollections.observableArrayList();
         try {
-            db = DriverManager.getConnection("jdbc:mysql://92.186.108.32:3306/dioretsa", "admin", "Dioretsa");
+            db = DriverManager.getConnection("jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7392068", "sql7392068", "x7BRGYx8we");
         } catch (SQLException throwables) {
             System.out.println("Can't connect to database\n" + throwables.getMessage());
         }
