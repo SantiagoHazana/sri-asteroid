@@ -4,12 +4,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Sprite {
+
+    // *************************
+    // Attributes
+    // *************************
+
     public Vector position;
     public Vector velocity;
     public double rotation; // en grados
     public Hitbox boundary; //hitbox / perimetro
     public Image image;
 
+    // *************************
+    // Constructors
+    // *************************
+
+    /**
+     * Default constructor, initializes all attributes to 0
+     */
     public Sprite(){
         this.position = new Vector();
         this.velocity = new Vector();
@@ -18,31 +30,53 @@ public class Sprite {
 
     }
 
+    /**
+     * Contructs a sprite with the given imageURL
+     * Calls the default constructor
+     * @param imageFileName the url to the image
+     */
+
     public Sprite(String imageFileName){
         this(); //const vacio
         setImage(imageFileName);
     }
 
-    //creacion de nave/roca
+    // *************************
+    // Public methods
+    // *************************
+
+    /**
+     * Changes the image and boundaries of the sprite
+     * @param imageFileName new image url
+     */
     public void setImage(String imageFileName){
         this.image = new Image(imageFileName);
         this.boundary.setSize(image.getWidth(), image.getHeight());
     }
 
-    //posicion
+    /**
+     * Positions the boundary and returns it
+     * @return the boundary
+     */
     public Hitbox getBoundary(){
         this.boundary.setPosition(this.position.x, this.position.y);
         return this.boundary;
     }
-    
 
-    //comprueba superposicion de Sprites
+    /**
+     * Checks if the current sprite is overlapping with another one
+     * @param other other sprite
+     * @return true if overlaps with given sprite or false otherwise
+     */
     public boolean overlaps(Sprite other){
         return this.getBoundary().overlaps(other.getBoundary());
     }
 
-
-    //cuando la nave sale de la pantalla aparece en el lado opuesto
+    /**
+     *
+     * @param screenWidth
+     * @param screenHeight
+     */
     public void wrap(double screenWidth, double screenHeight){
 
         double halfWidth = this.image.getWidth()/2;

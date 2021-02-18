@@ -58,21 +58,12 @@ public class Rank implements Comparable{
         return dateTime;
     }
 
-    /**
-     * Compares a given Rank to the actual one
-     * @param o other rank to compare
-     * @return 1 if current rank is greated, 0 if equal, -1 if other rank is greater
-     */
     @Override
     public int compareTo(Object o) {
         Rank other = (Rank) o;
         return Integer.compare(score, other.getScore());
     }
 
-    /**
-     * Returns the name, score and date time
-     * @return name, score and date time
-     */
     @Override
     public String toString() {
         return String.format("%s: %d - %s", name, score, dateTime);
